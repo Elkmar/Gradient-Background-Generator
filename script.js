@@ -2,17 +2,13 @@ var css = document.querySelector("h3");
 var color1 = document.querySelector(".color1");
 var color2 = document.querySelector(".color2");
 var body = document.getElementById("gradient");
-var random = document.querySelector(".button1");
+var random = document.getElementById("random");
+var buttonSwitchSide = document.getElementById("buttonSwitchSide");
+var angle = document.getElementById("angle");
 
 function setGradient() {
-	body.style.background = 
-	"linear-gradient(to right, " 
-	+ color1.value 
-	+ ", " 
-	+ color2.value 
-	+ ")";
-
-	css.textContent = body.style.background + ";";
+	body.style.background = "linear-gradient(to right,"+ color1.value + ", " + color2.value + ")";
+	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
 }
 
 function randomRgb() {
@@ -47,7 +43,17 @@ function RGBToHex(rgb) {
 	  b = "0" + b;
   
 	return "#" + r + g + b;
-  }
+}
+
+function switchSide() {
+	let first = color1.value;
+	let second = color2.value;
+	color1.value = second;
+	color2.value = first
+	body.style.background = "linear-gradient(to right,"+ color1.value + ", " + color2.value + ")";
+	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
+
+}
 
 setRandomGradient();
 
@@ -56,3 +62,5 @@ color1.addEventListener("input", setGradient);
 color2.addEventListener("input", setGradient);
 
 random.addEventListener("click", setRandomGradient);
+
+buttonSwitchSide.addEventListener("click", switchSide);
