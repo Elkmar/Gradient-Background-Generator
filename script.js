@@ -5,6 +5,7 @@ var body = document.getElementById("gradient");
 var random = document.getElementById("random");
 var buttonSwitchSide = document.getElementById("buttonSwitchSide");
 var angle = document.getElementById("angle");
+var angleInput = document.getElementById("angleInput");
 
 function setGradient() {
 	body.style.background = "linear-gradient(to right,"+ color1.value + ", " + color2.value + ")";
@@ -55,6 +56,11 @@ function switchSide() {
 
 }
 
+function setAngleGradient() {
+	body.style.background = "linear-gradient(" + angleInput.value + "deg,"+ color1.value + ", " + color2.value + ")";
+	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
+}
+
 setRandomGradient();
 
 color1.addEventListener("input", setGradient);
@@ -64,3 +70,7 @@ color2.addEventListener("input", setGradient);
 random.addEventListener("click", setRandomGradient);
 
 buttonSwitchSide.addEventListener("click", switchSide);
+
+angleInput.addEventListener("input", setAngleGradient);
+
+angle.addEventListener("click", setAngleGradient)
