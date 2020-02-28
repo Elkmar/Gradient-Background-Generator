@@ -8,7 +8,6 @@ html, body {
     text-transform: uppercase;
     letter-spacing: .5em;
     top: 15%;
-    background: linear-gradient(to right, green , red); /* Standard syntax */
     overflow: auto;
 }
 
