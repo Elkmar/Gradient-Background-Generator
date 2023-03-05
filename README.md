@@ -1,2 +1,2 @@
 # Gradient-Background-Generator
-Gradient Background Generator for design
+Gradient Background Generator as an exercice for ZTM Academy 
