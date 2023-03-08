@@ -6,13 +6,16 @@
 </head>
 <body id="gradient">
 	<h1>Background Generator</h1>
-	<input class="color1" type="color" name="color1" value="#00ff00">
-	<input class="color2" type="color" name="color2" value="#ff0000">
+	<input class="color1" type="color" name="color1">
+	<input class="color2" type="color" name="color2">
 	<h2>Current CSS Background</h2>
 	<h3></h3>
-	<a href="#" class="button1" id="random">Generate random background</a><br>
-	<a href="#" class="button1" id="buttonSwitchSide">Switch side</a>
-	<a href="#" class="button1" id="angle">Angle : <input id="angleInput" name="angleInput" type="number" value="0">°</a>
+    <button id="radialGradient">Radial Gradient</button>
+    <button id="toLeft">Linear Gradient to Left</button>
+    <button id="toRight">Linear Gradient to Right</button>
+    <input id="angleInput" name="angleInput" type="number" placeholder="Linear Gradient Angle"><br><br>
+    <button id="switchSide">Switch Side</button>
+    <button id="randomColor">Generate random color</button>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

@@ -1,76 +1,78 @@
-var css = document.querySelector("h3");
-var color1 = document.querySelector(".color1");
-var color2 = document.querySelector(".color2");
-var body = document.getElementById("gradient");
-var random = document.getElementById("random");
-var buttonSwitchSide = document.getElementById("buttonSwitchSide");
-var angle = document.getElementById("angle");
-var angleInput = document.getElementById("angleInput");
+const css = document.querySelector("h3");
+const color1 = document.querySelector(".color1");
+const color2 = document.querySelector(".color2");
+const body = document.getElementById("gradient"); 
+const randomColor = document.getElementById("randomColor")
+const toLeftButton = document.getElementById("toLeft");
+const toRightButton = document.getElementById("toRight");
+const angleInput = document.getElementById("angleInput");
+const switchSideButton = document.getElementById("switchSide");
+const radialGradient = document.getElementById("radialGradient");
 
-function setGradient() {
-	body.style.background = "linear-gradient(to right,"+ color1.value + ", " + color2.value + ")";
-	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
-}
+let mode = "rightGradient";
 
-function randomRgb() {
-    var o = Math.round, r = Math.random, s = 255;
-    return "rgb(" + o(r()*s) + "," + o(r()*s) + "," + o(r()*s) +")" ;
-}
-
-function setRandomGradient() {
-	let random1 = randomRgb();
-	let random2 = randomRgb();
-	body.style.background = "linear-gradient(to right," + random1 + "," + random2 + ")";
-	color1.value = RGBToHex(random1);
-	color2.value = RGBToHex(random2);
-	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
-}
-
-function RGBToHex(rgb) {
-	// Choose correct separator
-	let sep = rgb.indexOf(",") > -1 ? "," : " ";
-	// Turn "rgb(r,g,b)" into [r,g,b]
-	rgb = rgb.substr(4).split(")")[0].split(sep);
+const setGradient = () => {
+	let gradientStyle;
   
-	let r = (+rgb[0]).toString(16),
-		g = (+rgb[1]).toString(16),
-		b = (+rgb[2]).toString(16);
-  
-	if (r.length == 1)
-	  r = "0" + r;
-	if (g.length == 1)
-	  g = "0" + g;
-	if (b.length == 1)
-	  b = "0" + b;
-  
-	return "#" + r + g + b;
+	switch (mode) {
+	  case "leftGradient":
+		gradientStyle = `linear-gradient(to left, ${color1.value}, ${color2.value})`;
+		break;
+	  case "angleGradient":
+		gradientStyle = `linear-gradient(${angleInput.value}deg, ${color1.value}, ${color2.value})`;
+		break;
+	  case "radialGradient":
+		gradientStyle = `radial-gradient(${color1.value}, ${color2.value})`;
+		break;
+	  default:
+		gradientStyle = `linear-gradient(to right, ${color1.value}, ${color2.value})`;
+	}
+	body.style.background = gradientStyle;
+	css.textContent = `${gradientStyle};`;
+};
+
+const generateRandomColor = () => {
+	return "#" + Math.floor(Math.random()*16777215).toString(16);
 }
 
-function switchSide() {
-	let first = color1.value;
-	let second = color2.value;
-	color1.value = second;
-	color2.value = first
-	body.style.background = "linear-gradient(to right,"+ color1.value + ", " + color2.value + ")";
-	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
+const generateRandomBackground = () => {
+	color1.value = generateRandomColor();
+	color2.value = generateRandomColor();
+	setGradient();
+};
 
-}
+const setAngleGradient = () => {
+	mode = "angleGradient";
+	setGradient();
+};
 
-function setAngleGradient() {
-	body.style.background = "linear-gradient(" + angleInput.value + "deg,"+ color1.value + ", " + color2.value + ")";
-	css.innerHTML = body.style.background + ";" + "<br><br>Color 1(hex) : " + color1.value + " Color 2(hex) : " + color2.value;
-}
+const setToRightGradient = () => {
+	mode = "rightGradient";
+	setGradient();
+};
 
-setRandomGradient();
+const setToLeftGradient = () => {
+	mode = "leftGradient";
+	setGradient();
+};
+
+const setRadialGradient = () => {
+	mode = "radialGradient";
+	setGradient();
+};
+
+const switchSide = () => {
+	[color1.value, color2.value] = [color2.value, color1.value];
+	setGradient();
+  };
 
 color1.addEventListener("input", setGradient);
-
 color2.addEventListener("input", setGradient);
-
-random.addEventListener("click", setRandomGradient);
-
-buttonSwitchSide.addEventListener("click", switchSide);
-
+randomColor.addEventListener("click", generateRandomBackground);
+toLeftButton.addEventListener("click", setToLeftGradient);
+toRightButton.addEventListener("click", setToRightGradient);
 angleInput.addEventListener("input", setAngleGradient);
+switchSideButton.addEventListener("click", switchSide);
+radialGradient.addEventListener("click", setRadialGradient);
 
-angle.addEventListener("click", setAngleGradient)
+generateRandomBackground();
